@@ -12,7 +12,7 @@ const authenticatedUser = (username, password) => users.filter((user) => user.us
 regd_users.post("/login", (req,res) => {
   const username = req.body.username;
   const password = req.body.password;
-
+  console.log("entering login router")
   if (!username || !password) {
       return res.status(404).json({message: "Error logging in"});
   }
