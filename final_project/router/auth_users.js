@@ -19,7 +19,7 @@ regd_users.post("/login", (req,res) => {
 
   if (authenticatedUser(username,password)) {
     let accessToken = jwt.sign({
-      data: password
+      data: {username, password}
     }, 'access', { expiresIn: 60 * 60 });
 
     req.session.authorization = {
@@ -40,8 +40,8 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
    
   console.log("got review" + review_rcvd)
   // Retrieve username from JWT token
-  const username = req.user; 
-  console.log(JSON.stringify(req.user))
+  const username = req.session.username; 
+  console.log(JSON.stringify(req.user));
   console.log("username" + username)
   if(!review_rcvd) {
     res.send("Review is required");
