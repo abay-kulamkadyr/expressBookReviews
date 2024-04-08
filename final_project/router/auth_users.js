@@ -40,7 +40,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     res.send("Review is required");
   }
   if(isbn > 0 && isbn < 11) {
-    books[isbn].review = review;
+    books[isbn].review.push(review);
     res.send("Review is added succesfully, old one is replaced");
   }
   res.send("something went wrong");
