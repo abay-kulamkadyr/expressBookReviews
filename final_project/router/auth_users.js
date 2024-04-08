@@ -63,9 +63,9 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   if(books[isbn].reviews[username]) {
       delete books[isbn].reviews[username];
-      return res.status(200).message("review has been deleted");
+      return res.send("review has been deleted");
   }
-  return res.status(400).message("review doesn't exist");
+  return res.send("review doesn't exist");
 });
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
