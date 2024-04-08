@@ -47,6 +47,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     res.send("Review is required");
   }
   if(isbn > 0 && isbn < 11) {
+    if (!books[isbn].reviews) {
+      books[isbn].reviews = {};
+    }
     const new_review = {user: username, review: review_rcvd};
     books[isbn].review[username] = new_review;
     res.send("Review is added succesfully, old one is replaced");
