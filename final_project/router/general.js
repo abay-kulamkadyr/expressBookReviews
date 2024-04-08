@@ -9,7 +9,7 @@ public_users.post("/register", (req,res) => {
   //Write your code here
   const username = req.body.username;
   const password = req.body.password;
-
+  console.log("checking"); 
   if (username && password) {
     console.log("password and username ok");
     if (!isValid(username)) { 
