@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const session = require('express-session')
+const session = require('express-session');
+const { isValid } = require('./router/auth_users.js');
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
 const app = express();
@@ -31,7 +32,7 @@ app.post("/register", (req,res) => {
   const password = req.body.password;
 
   if (username && password) {
-    if (!doesExist(username)) { 
+    if (!isValid(username)) { 
       users.push({"username":username,"password":password});
       return res.status(200).json({message: "User successfully registred. Now you can login"});
     } else {
