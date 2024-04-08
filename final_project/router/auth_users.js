@@ -36,14 +36,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
   const isbn = req.params.isbn;
   console.log("got isbn"+isbn);
-  const new_review = req.body.review;
+  const review_rcvd = req.body.review;
   
-  console.log("got review" + new_review)
-  if(!new_review) {
+  console.log("got review" + review_rcvd)
+  if(!review_rcvd) {
     res.send("Review is required");
   }
   if(isbn > 0 && isbn < 11) {
-    const new_review = {user: req.username, review: new_review};
+    const new_review = {user: req.username, review: review_rcvd};
     books[isbn].review[req.username] = new_review;
     res.send("Review is added succesfully, old one is replaced");
   }
