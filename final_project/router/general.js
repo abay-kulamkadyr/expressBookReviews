@@ -18,7 +18,10 @@ public_users.get('/',function (req, res) {
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
-    res.send(JSON.stringify(books[req.params.isbn])); 
+    let isbn = req.params.isbn;
+    if(isbn > 0 && isbn < 10)
+      res.send(JSON.stringify(books[isbn])); 
+    res.send("A book with the given isbn doesn't exit")
  });
   
 // Get book details based on author
@@ -58,7 +61,10 @@ public_users.get('/title/:title',function (req, res) {
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+  let isbn = req.params.isbn;
+  if(isbn > 1 && isbn < 11)
+    res.send(JSON.stringify(books[isbn].reviews));
+  res.send("A book with the given ISBN doesn't exist")
+})
 
 module.exports.general = public_users;
