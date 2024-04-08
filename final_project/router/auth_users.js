@@ -40,9 +40,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
    
   console.log("got review" + review_rcvd)
   // Retrieve username from JWT token
-  const token = req.session.authorization.accessToken;
-  const decodedToken = jwt.verify(token, 'access');
-  const username = decodedToken.user;
+  const username = req.user; 
   console.log("username" + username)
   if(!review_rcvd) {
     res.send("Review is required");
