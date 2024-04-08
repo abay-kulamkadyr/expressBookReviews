@@ -42,14 +42,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   // Retrieve username from JWT token
   const token = req.session.authorization.accessToken;
   const decodedToken = jwt.verify(token, 'access');
-  const username = decodedToken.username;
+  const username = decodedToken.user;
   console.log("username" + username)
   if(!review_rcvd) {
     res.send("Review is required");
   }
   if(isbn > 0 && isbn < 11) {
     const new_review = {user: username, review: review_rcvd};
-    books[isbn].review[req.username] = new_review;
+    books[isbn].review[username] = new_review;
     res.send("Review is added succesfully, old one is replaced");
   }
   res.send("something went wrong");
