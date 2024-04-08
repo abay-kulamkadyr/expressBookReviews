@@ -27,7 +27,7 @@ public_users.get('/author/:author',function (req, res) {
   let author_name = req.params.author; 
   let filtered_books = [];
   for(let key in books) {
-      if(books[key].author == author_name) {
+      if(books[key].author === author_name) {
           filtered_books.push(books[key]);
       }
   } 
@@ -41,7 +41,18 @@ public_users.get('/author/:author',function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  let book_title = req.params.title;
+  let found_books = [];
+
+  for(let key in books) {
+      if(books[key].title === book_title) {
+        found_books.push(books[key]);
+      }
+  }
+  if(found_books.length <= 0) {
+    res.send("Couldn't find a book with the title: "+ book_title);
+  }
+  res.send(JSON.stringify(found_books, null, 4));
 });
 
 //  Get book review
