@@ -38,7 +38,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   console.log("got isbn"+isbn);
   const new_review = req.body.review;
   
-  console.log("got review" + review)
+  console.log("got review" + new_review)
   if(!new_review) {
     res.send("Review is required");
   }
