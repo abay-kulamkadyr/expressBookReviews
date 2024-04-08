@@ -35,7 +35,7 @@ regd_users.post("/login", (req,res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
   const isbn = req.params.isbn;
-  const review = req.query.review;
+  const review = req.body.review;
   if(!review) {
     res.send("Review is required");
   }
