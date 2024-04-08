@@ -32,7 +32,7 @@ public_users.get('/author/:author',function (req, res) {
       }
   } 
 
-  if(filtered_books.length() <= 0)
+  if(filtered_books.length <= 0)
     res.send("Couldn't find a book by author: "+author_name);
   res.send(JSON.stringify(filtered_books, null, 4));
 
