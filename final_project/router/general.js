@@ -62,7 +62,7 @@ public_users.get('/title/:title',function (req, res) {
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
   let isbn = req.params.isbn;
-  if(isbn > 1 && isbn < 11)
+  if(isbn > 0 && isbn < 11)
     res.send(JSON.stringify(books[isbn].reviews));
   res.send("A book with the given ISBN doesn't exist")
 })
