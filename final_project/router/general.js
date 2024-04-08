@@ -25,13 +25,17 @@ public_users.get('/isbn/:isbn',function (req, res) {
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
   let author_name = req.params.author; 
+  let filtered_books = [];
   for(let key in books) {
       if(books[key].author == author_name) {
-        res.send(JSON.stringify(books[key], null, 4));
+          filtered_books.push(books[key]);
       }
   } 
 
-  res.send("Couldn't find the book by: " + author_name);
+  if(filtered_books.length() <= 0)
+    res.send("Couldn't find a book by author: "+author_name);
+  res.send(JSON.stringify(filtered_books, null, 4));
+
 });
 
 // Get all books based on title
