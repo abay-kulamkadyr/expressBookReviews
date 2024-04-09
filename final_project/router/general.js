@@ -89,22 +89,31 @@ public_users.get('/author/:author', async function (req, res) {
       res.status(404).send(error.message);
   }
 });
-
+const getBooksByTitle = (title) => {
+  return new Promise((resolve, reject)=>{
+      let found_books = [];
+      for(let key in books) {
+        if(books[key] === title) {
+          found_books.push(books[key]);
+        }
+      }
+      if(found_books.length <= 0) {
+          reject(new Error("Couldn't find a book with the title ${title}"))
+      } else {
+          resolve(found_books);
+      }
+  });
+};
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
+public_users.get('/title/:title',async function (req, res) {
   //Write your code here
   let book_title = req.params.title;
-  let found_books = [];
-
-  for(let key in books) {
-      if(books[key].title === book_title) {
-        found_books.push(books[key]);
-      }
-  }
-  if(found_books.length <= 0) {
-    res.send("Couldn't find a book with the title: "+ book_title);
-  }
-  res.send(JSON.stringify(found_books, null, 4));
+  try {
+    let books = await getBooksByTitle(book_title); 
+    res.status(200).send(books);
+  } catch (error) {
+    res.status(404).send(error.message); 
+  } 
 });
 
 //  Get book review
