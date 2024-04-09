@@ -93,7 +93,7 @@ const getBooksByTitle = (title) => {
   return new Promise((resolve, reject)=>{
       let found_books = [];
       for(let key in books) {
-        if(books[key] === title) {
+        if(books[key].title === title) {
           found_books.push(books[key]);
         }
       }
