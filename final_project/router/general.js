@@ -60,25 +60,34 @@ public_users.get('/isbn/:isbn', async function (req, res) {
       let book = await getBookByIsbn(isbn);
       res.send(book);
     } catch(error) {
-      return res.send(error);
+      return res.status(404).send(error.message);
     }
  });
-  
+const getBooksByAuthor = (author) => {
+  return new Promise((resolve, reject)=>{
+      let filtered_books = [];
+      for(let key in books) {
+          if(books[key].author === author) {
+            filtered_books.push(books[key]);
+          }
+      }
+      if(filtered_books.length <= 0) {
+        reject(new Error("Couldn't find a book by autho ${author}"));
+      } else {
+          resolve(filtered_books);
+      }
+  });
+} 
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
+public_users.get('/author/:author', async function (req, res) {
   //Write your code here
   let author_name = req.params.author; 
-  let filtered_books = [];
-  for(let key in books) {
-      if(books[key].author === author_name) {
-          filtered_books.push(books[key]);
-      }
-  } 
-
-  if(filtered_books.length <= 0)
-    res.send("Couldn't find a book by author: "+author_name);
-  res.send(JSON.stringify(filtered_books, null, 4));
-
+  try {
+    let books = await getBooksByAuthor(author_name); 
+    res.status(200).send(books);
+  } catch (error) {
+      res.status(404).send(error.message);
+  }
 });
 
 // Get all books based on title
