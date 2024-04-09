@@ -23,9 +23,14 @@ public_users.post("/register", (req,res) => {
 
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+public_users.get('/',async function (req, res) {
   //Write your code here
-  res.send(JSON.stringify(books, null, 4));
+  try{
+    res.send(JSON.stringify(books, null, 4));
+  } catch(error) {
+    res.status(500).json({message: 'Failed to fetch books'});
+  }
+//  res.send(JSON.stringify(books, null, 4));
 });
 
 // Get book details based on ISBN
